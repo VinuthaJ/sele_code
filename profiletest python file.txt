@@ -1,0 +1,33 @@
+from selenium import webdriver
+
+import unittest
+
+
+
+class LoginTest(unittest.TestCase):
+    @classmethod
+    def setUpClass(cls):
+        cls.driver = webdriver.Chrome(executable_path="c:/se/Chromedriver.exe")
+        cls.driver.implicitly_wait(10)
+        cls.driver.maximize_window()
+
+    def test_login_valid(self):
+        self.driver.get("file:///C:/Users/HP/Desktop/git/blog_update1-2.0/userprofile.html")
+        self.driver.find_element_by_link_text("Edit Profile").click()
+        if self.driver.title == "Edit Profile":
+            self.driver.find_element_by_name("name").send_keys("vindhya")
+            self.driver.find_element_by_name("username").send_keys("vindhya@1")
+            self.driver.find_element_by_id("bio").send_keys("hi welcome to ourapp")
+            self.driver.find_element_by_link_text("Save Changes").click()
+            print("test passed")
+        else:
+            print("test failed")
+
+
+
+    @classmethod
+    def tearDownClass(cls):
+        cls.driver.close()
+        cls.driver.quit()
+        print("test completed")
+
